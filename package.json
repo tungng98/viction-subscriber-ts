@@ -1,0 +1,21 @@
+{
+  "name": "viction-subscriber",
+  "version": "0.1.0",
+  "description": "Viction Blockchain WSS Test Application",
+  "main": "index.ts",
+  "scripts": {
+    "clean": "rd /s /q node_modules",
+    "refresh": "npm run clean && npm install && npm run clean && yarn install && npm run clean && pnpm install",
+    "start": "ts-node ./index.ts"
+  },
+  "author": "Tung Nguyen",
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "^5.7.2",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "typescript": "^4.9.5"
+  }
+}
