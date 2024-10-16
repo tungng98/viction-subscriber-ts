@@ -16,17 +16,23 @@ const WS_PROVIDER_URL = 'ws://localhost:8546';
 
 async function newHeadsHandler(head: {[Name: string]: string }) {
 	const blockNumber = BigNumber.from(head['number']);
-	console.log(`New Block: ${head['number']} (${blockNumber.toBigInt()})`);
+	const blockHash = head['hash'];
+	console.log(`New Block: ${head['number']} (${blockNumber.toBigInt()}): ${blockHash}`);
 
 	const httpProvider = new ethers.providers.JsonRpcProvider(RPC_PROVIDER_URL);
 	const block = await httpProvider.getBlock(head['number']);
-	console.log(`Got Block: ${head['number']} (${blockNumber.toBigInt()}): ${block.hash}`);
+	if (block.hash == blockHash) {
+		console.log(`Got Block: ${head['number']} (${blockNumber.toBigInt()}): ${block.hash}`);
+	} else {
+		console.log('Different block between RPC and WSS');
+	}
 
 	saveTransactions(block.transactions);
 }
 
 async function saveTransactions(txHashes: string[]) {
 	// TODO: Save to DB
+	console.log(txHashes)
 }
 
 async function processTransactionJob() {
